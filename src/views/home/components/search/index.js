@@ -2,7 +2,7 @@ import React, { memo, useState } from "react";
 
 import styles from "./search.module.css";
 
-const Search = ({ search, getSearchValue }) => {
+const Search = ({ search, getSearchValue, isSearching }) => {
   const [searchValue, setSearchValue] = useState("");
 
   const handleChange = e => {
@@ -19,8 +19,8 @@ const Search = ({ search, getSearchValue }) => {
         value={searchValue}
         onChange={handleChange}
       />
-      <button className={styles.btn} onClick={search}>
-        search
+      <button className={styles.btn} onClick={search} disabled={isSearching}>
+        {isSearching ? "searching" : "search"}
       </button>
     </div>
   );

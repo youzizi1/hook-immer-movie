@@ -12,6 +12,7 @@ const Home = () => {
   const [searchValue, setSearchValue] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isSearching, setIsSearching] = useState(false);
 
   const search = () => {
     if (!searchValue) {
@@ -21,6 +22,7 @@ const Home = () => {
 
     setError("");
     setLoading(true);
+    setIsSearching(true);
     fetch(getSearchUrl(searchValue))
       .then(res => res.json())
       .then(res => {
@@ -35,6 +37,7 @@ const Home = () => {
       })
       .finally(() => {
         setLoading(false);
+        setIsSearching(false);
       });
   };
 
@@ -45,7 +48,11 @@ const Home = () => {
   return (
     <div>
       <Header title="Movie App" />
-      <Search search={search} getSearchValue={getSearchValue} />
+      <Search
+        search={search}
+        getSearchValue={getSearchValue}
+        isSearching={isSearching}
+      />
       <HandleMovie loading={loading} error={error} movieList={movieList} />
     </div>
   );
