@@ -1,0 +1,15 @@
+.search {
+  display: flex;
+  justify-content: center;
+}
+
+.input,
+.btn {
+  border: 1px solid #ccc;
+}
+
+.btn {
+  padding: 5px;
+  margin-left: 10px;
+  cursor: pointer;
+}
