@@ -1,4 +1,5 @@
-import React, { memo, useReducer } from "react";
+import React, { memo } from "react";
+import { useImmerReducer } from "use-immer";
 
 import Header from "./components/header";
 import Search from "./components/search";
@@ -10,7 +11,7 @@ import { reducer, initialState } from "./reducer";
 import * as types from "./reducer/type";
 
 const Home = () => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useImmerReducer(reducer, initialState);
   const { movieList, searchValue, error, loading, isSearching } = state;
 
   const search = () => {

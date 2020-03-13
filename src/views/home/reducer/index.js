@@ -8,34 +8,24 @@ export const initialState = {
   isSearching: false
 };
 
-export const reducer = (state, action) => {
+export const reducer = (draft, action) => {
   switch (action.type) {
     case types.CHANGE_MOVIELIST:
-      return {
-        ...state,
-        movieList: action.data
-      };
+      draft.movieList = action.data;
+      break;
     case types.CHANGE_SEARCHVALUE:
-      return {
-        ...state,
-        searchValue: action.data
-      };
+      draft.searchValue = action.data;
+      break;
     case types.CHANGE_ERROR:
-      return {
-        ...state,
-        error: action.data
-      };
+      draft.error = action.data;
+      break;
     case types.CHANGE_LOADING:
-      return {
-        ...state,
-        loading: action.data
-      };
+      draft.loading = action.data;
+      break;
     case types.CHANGE_ISSEARCHING:
-      return {
-        ...state,
-        isSearching: action.data
-      };
+      draft.isSearching = action.data;
+      break;
     default:
-      return state;
+      return initialState;
   }
 };
