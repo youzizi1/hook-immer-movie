@@ -3,6 +3,8 @@ import React, { memo, useState } from "react";
 import Header from "./components/header";
 import Search from "./components/search";
 import Movie from "./components/movie";
+import Loading from "../../base/loading";
+import ErrorComponent from "../../base/error";
 import { getSearchUrl } from "../../config";
 
 const Home = () => {
@@ -51,10 +53,10 @@ const Home = () => {
 
 const HandleMovie = ({ loading, error, movieList }) => {
   if (loading) {
-    return <div>加载中...</div>;
+    return <Loading />;
   }
   if (error) {
-    return <div>{error}</div>;
+    return <ErrorComponent error={error} />;
   }
   return <Movie movieList={movieList} />;
 };

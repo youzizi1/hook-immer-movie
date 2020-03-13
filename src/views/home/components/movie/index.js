@@ -1,6 +1,7 @@
 import React, { memo } from "react";
 
 import styles from "./movie.module.css";
+import NoData from "../../../../base/no-data";
 
 const Movie = ({ movieList }) => {
   return (
@@ -43,7 +44,7 @@ const MovieList = ({ movieList }) => {
     );
   }
 
-  return <div>暂时没有数据</div>;
+  return <NoData />;
 };
 
 export default memo(Movie);
