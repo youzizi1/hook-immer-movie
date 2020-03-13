@@ -1,4 +1,4 @@
-import React, { memo, useState } from "react";
+import React, { memo, useReducer } from "react";
 
 import Header from "./components/header";
 import Search from "./components/search";
@@ -6,13 +6,12 @@ import Movie from "./components/movie";
 import Loading from "../../base/loading";
 import ErrorComponent from "../../base/error";
 import { getSearchUrl } from "../../config";
+import { reducer, initialState } from "./reducer";
+import * as types from "./reducer/type";
 
 const Home = () => {
-  const [movieList, setMovieList] = useState([]);
-  const [searchValue, setSearchValue] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [isSearching, setIsSearching] = useState(false);
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const { movieList, searchValue, error, loading, isSearching } = state;
 
   const search = () => {
     if (!searchValue) {
@@ -20,29 +19,29 @@ const Home = () => {
       return;
     }
 
-    setError("");
-    setLoading(true);
-    setIsSearching(true);
+    dispatch({ type: types.CHANGE_ERROR, data: "" });
+    dispatch({ type: types.CHANGE_LOADING, data: true });
+    dispatch({ type: types.CHANGE_ISSEARCHING, data: true });
     fetch(getSearchUrl(searchValue))
       .then(res => res.json())
       .then(res => {
         if (res.Response === "True") {
-          setMovieList(res.Search);
+          dispatch({ type: types.CHANGE_MOVIELIST, data: res.Search });
         } else {
-          setError(res.Error);
+          dispatch({ type: types.CHANGE_ERROR, data: res.Error });
         }
       })
       .catch(err => {
-        setError("请求失败");
+        dispatch({ type: types.CHANGE_ERROR, data: "请求失败" });
       })
       .finally(() => {
-        setLoading(false);
-        setIsSearching(false);
+        dispatch({ type: types.CHANGE_LOADING, data: false });
+        dispatch({ type: types.CHANGE_ISSEARCHING, data: false });
       });
   };
 
   const getSearchValue = searchValue => {
-    setSearchValue(searchValue);
+    dispatch({ type: types.CHANGE_SEARCHVALUE, data: searchValue });
   };
 
   return (
